@@ -1,0 +1,25 @@
+{
+  "name": "pri-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^3.4.1",
+    "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
+    "koa-router": "^10.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14",
+    "prisma": "^3.4.1"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}

@@ -7,7 +7,7 @@
 ```bash
 npm init -y
 touch server.js
-npm i koa koa-router koa-body
+npm i koa koa-router koa-body @koa/cors
 npm i -D nodemon
 ```
 

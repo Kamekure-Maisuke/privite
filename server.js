@@ -1,15 +1,17 @@
 const Koa = require('koa')
 const Router = require('koa-router')
 const koaBody = require('koa-body')
+const cors = require('@koa/cors')
 const { PrismaClient } = require('@prisma/client')
 
 const app = new Koa();
 const router = new Router();
 const prisma = new PrismaClient();
 
-app
-  .use(router.routes())
-  .use(router.allowedMethods())
+app.use(router.routes())
+router.use(cors({
+  origin: 'http://localhost:3000'
+}))
 
 router.get('/', async (ctx,next) => {
   ctx.body = "Hello"

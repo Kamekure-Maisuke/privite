@@ -30,7 +30,7 @@ router.get('/tasks', async (ctx,next) => {
 })
 
 // GET:個別タスク
-router.get('/task/:id', async (ctx,next) => {
+router.get('/tasks/:id', async (ctx,next) => {
   try {
     const task = await prisma.task.findUnique({
       where: { id: Number(ctx.params.id) }
@@ -44,7 +44,7 @@ router.get('/task/:id', async (ctx,next) => {
 })
 
 // POST:タスク新規作成
-router.post('/task',koaBody(), async (ctx,next) => {
+router.post('/tasks',koaBody(), async (ctx,next) => {
   try {
     await prisma.task.create({
       data: { title: ctx.request.body['title'] }
@@ -56,7 +56,7 @@ router.post('/task',koaBody(), async (ctx,next) => {
 })
 
 // PUT:タスク更新
-router.put('/task/:id',koaBody(), async (ctx,next) => {
+router.put('/tasks/:id',koaBody(), async (ctx,next) => {
   try {
     await prisma.task.update({
       where: { id: Number(ctx.params.id) },
@@ -69,7 +69,7 @@ router.put('/task/:id',koaBody(), async (ctx,next) => {
 })
 
 // DELETE:タスク削除
-router.delete('/task/:id', async (ctx,next) => {
+router.delete('/tasks/:id', async (ctx,next) => {
   try {
     await prisma.task.delete({
       where: { id: Number(ctx.params.id) }

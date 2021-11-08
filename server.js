@@ -46,10 +46,11 @@ router.get('/tasks/:id', async (ctx,next) => {
 // POST:タスク新規作成
 router.post('/tasks',koaBody(), async (ctx,next) => {
   try {
-    await prisma.task.create({
+    const task = await prisma.task.create({
       data: { title: ctx.request.body['title'] }
     })
-    ctx.status = 200;
+    ctx.status = 200
+    ctx.body = task
   } catch (error) {
     ctx.status = 500;
   }

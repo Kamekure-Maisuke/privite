@@ -1,14 +1,33 @@
 <script setup>
-import { ref } from 'vue'
+import ky from 'ky';
+import { ref, reactive } from 'vue'
 
+const base = "http://localhost:8000"
 const tasks = ref([])
+const newTask = reactive({  // v-modelの値と合わせる。
+  title: ''
+})
 
 async function getTasks(){
   try{
-    const data = await fetch('http://localhost:8000/tasks');
-    tasks.value = await data.json()
+    const res = await ky(`${base}/tasks`);
+    tasks.value = await res.json()
   } catch(err){
     console.error('🔥', err)
+  }
+}
+
+async function postTask(){
+  const postData = new URLSearchParams();
+  postData.set('title', newTask.title);
+  try {
+    const data = await ky.post(`${base}/tasks`, {
+      body: postData
+    }).json();
+    newTask.title = ''
+    tasks.value.push(data)
+  } catch (err) {
+    console.error('🔥',err)
   }
 }
 
@@ -25,8 +44,8 @@ async function getTasks(){
       <span class="label-text">新規作成</span>
     </label>
     <div class="flex space-x-2">
-      <input type="text" placeholder="タイトルを入力してください。" class="w-full input input-bordered"> 
-      <button class="btn btn-primary">新規作成</button>
+      <input type="text" v-model="newTask.title" placeholder="タイトルを入力してください。" class="w-full input input-bordered"> 
+      <button class="btn btn-primary" @click="postTask">新規作成</button>
     </div>
   </div>
   <!-- 一覧 -->

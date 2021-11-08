@@ -45,3 +45,9 @@ daisyui: {
   themes: false
 }
 ```
+
+- fetchライブラリのkyを入れる。
+
+```bash
+npm i ky
+```

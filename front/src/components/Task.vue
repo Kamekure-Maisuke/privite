@@ -31,6 +31,15 @@ async function postTask(){
   }
 }
 
+async function deleteTasks(id){
+  try {
+    await ky.delete(`${base}/tasks/${id}`)
+    tasks.value = tasks.value.filter(task => task.id != id)
+  } catch (error) {
+    console.error('🔥',err);
+  }
+}
+
 (async () => {
   await getTasks()
 })()
@@ -66,7 +75,7 @@ async function postTask(){
           <td>{{ task.done }}</td>
           <td>
             <button class="btn btn-outline btn-circle">編集</button>
-            <button class="btn btn-outline btn-circle">削除</button>
+            <button class="btn btn-outline btn-circle" @click="deleteTasks(task.id)">削除</button>
           </td>
         </tr>
       </tbody>

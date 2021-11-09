@@ -8,7 +8,14 @@ const app = new Koa();
 const router = new Router();
 const prisma = new PrismaClient();
 
-app.use(router.routes())
+// cors設定
+app
+  .use(cors({
+    origin:"http://localhost:3000",
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+  }))
+  .use(router.routes())
+
 router.use(cors({
   origin: 'http://localhost:3000'
 }))
@@ -72,10 +79,11 @@ router.put('/tasks/:id',koaBody(), async (ctx,next) => {
 // DELETE:タスク削除
 router.delete('/tasks/:id', async (ctx,next) => {
   try {
-    await prisma.task.delete({
+    const task = await prisma.task.delete({
       where: { id: Number(ctx.params.id) }
     })
     ctx.status = 200
+    ctx.body = task
   } catch (error) {
     ctx.status = 500
   }

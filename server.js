@@ -16,10 +16,6 @@ app
   }))
   .use(router.routes())
 
-router.use(cors({
-  origin: 'http://localhost:3000'
-}))
-
 router.get('/', async (ctx,next) => {
   ctx.body = "Hello"
 })

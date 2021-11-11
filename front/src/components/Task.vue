@@ -18,11 +18,11 @@ async function getTasks(){
 }
 
 async function postTask(){
-  const postData = new URLSearchParams();
-  postData.set('title', newTask.title);
   try {
     const data = await ky.post(`${base}/tasks`, {
-      body: postData
+      json: {
+        title: newTask.title
+      }
     }).json();
     newTask.title = ''
     tasks.value.push(data)

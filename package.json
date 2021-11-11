@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "migrate:dev": "prisma migrate dev",
+    "seed:dev": "prisma db seed"
   },
   "keywords": [],
   "author": "",

@@ -56,3 +56,6 @@ model テーブル名 {
   - テーブル作成が行われている。
 
 - 次に`npx prisma db seed`でseedで定義した初期データをデータベースに流し込む。
+
+- `schema.prisma`のモデルにカラムの追加後、`npx prisma migrate dev --name add_変更点`のような形式でマイグレートする。
+  - 変更点が明確なマイグレーションファイルができる。
